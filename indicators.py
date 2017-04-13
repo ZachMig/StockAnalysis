@@ -1,6 +1,5 @@
 import pandas as pd
 import pickle
-import matplotlib.pyplot as plt
 
 def get_ewma_RSI(ticker, period):
     df = pickle.load( open('{}.pickle'.format(ticker), 'rb'))
@@ -44,23 +43,19 @@ def get_OBV(ticker):
     df = pickle.load( open('{}.pickle'.format(ticker), 'rb'))
     close = df[['Adj Close']]
     diff = close.diff()[1:]
-
     volumes = [0]
     obv = [0]
     cumsum = 0
     
     i = 1
-    for delta in diff:
-        if delta > 0:
-            volumes.append(df[['Volume']][i])
-        elif delta < 0:
-            volumes.append((-1) * df[['Volume']][i])
+    for row in diff.itertuples(index=False):
+        if row[0] > 0:
+            volumes.append(df.ix[i,4])
+        elif row[0] < 0:
+            volumes.append((-1) * df.ix[i,4])
         else:
             volumes.append(0)
-            obv[i] = obv[i-1] + volumes[i]
+        obv.append(obv[i-1] + volumes[i])
         i += 1
-        
+
     return pd.Series(obv)
-    
-    
-    
