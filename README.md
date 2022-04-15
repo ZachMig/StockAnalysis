@@ -1,6 +1,4 @@
 # StockAnalysis
-Scripts to amalgamate &amp; display my favorite technical indicators and fundamental stats for a ticker.
-
-Add next: ADX
+Scripts for some technical indicators and fundamental stats for a ticker.
 
 Yahoo Finance API deprecated Spring 2017.
